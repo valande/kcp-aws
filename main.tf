@@ -12,7 +12,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "valbucket-valande" {
-  bucket = "nombre-del-bucket"
+  bucket = "valbucket-valande-2023"
 }
 
 resource "aws_s3_bucket_policy" "valbucket-valande-policy" {
