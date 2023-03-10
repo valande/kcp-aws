@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      version = ">= 4.56.0"
+    }
+  }
+}
+
 provider "aws" {
   region = "eu-west-1"
 }
@@ -30,14 +39,14 @@ resource "aws_s3_bucket_policy" "valbucket-valande-policy" {
 resource "aws_s3_object" "index" {
   bucket = aws_s3_bucket.valbucket-valande.bucket
   key    = "index.html"
-  source = "path/to/index.html"
+  source = "htdocs/index.html"
   content_type = "text/html"
 }
 
 resource "aws_s3_object" "error" {
   bucket = aws_s3_bucket.valbucket-valande.bucket
   key    = "error.html"
-  source = "path/to/error.html"
+  source = "htdocs/error.html"
   content_type = "text/html"
 }
 
