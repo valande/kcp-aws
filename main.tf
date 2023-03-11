@@ -2,7 +2,7 @@ resource "aws_s3_bucket" "valbucket" {
   bucket = var.bucket_s3
 }
 
-resource "aws_s3_bucket_policy" "valbucket-policy" {
+resource "aws_s3_bucket_policy" "valbucket_access_policy" {
   bucket = aws_s3_bucket.valbucket.id
 
   policy = jsonencode({
@@ -13,14 +13,13 @@ resource "aws_s3_bucket_policy" "valbucket-policy" {
         Effect    = "Allow"
         Principal = "*"
         Action    = [ "s3:GetObject" ]
-        Resource  = [ "${aws_s3_bucket.valbucket.arn}/*",
-        ]
+        Resource  = [ "${aws_s3_bucket.valbucket.arn}/*" ]
       },
     ]
   })
 }
 
-resource "aws_s3_bucket_website_configuration" "valbucket-website" {
+resource "aws_s3_bucket_website_configuration" "valbucket_website" {
   bucket = aws_s3_bucket.valbucket.id
 
   index_document {
@@ -52,7 +51,7 @@ resource "aws_s3_object" "index" {
 
 resource "aws_s3_object" "error" {
   bucket = aws_s3_bucket.valbucket.bucket
-  
+
   key    = "error.html"
   source = "htdocs/error.html"
   source_hash = filemd5("htdocs/error.html")
